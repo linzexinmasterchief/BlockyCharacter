@@ -69,7 +69,6 @@ public class BlockyMove : MonoBehaviour
 
         float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
-        float jump = 0;
 
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 

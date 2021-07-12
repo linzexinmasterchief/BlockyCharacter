@@ -6,7 +6,7 @@ public class PlatformCarry : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collide");
+
         if (collision.transform.tag == "Player")
         {
             collision.collider.transform.SetParent(transform);
