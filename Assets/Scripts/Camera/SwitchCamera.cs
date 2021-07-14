@@ -5,24 +5,30 @@ using UnityEngine;
 public class SwitchCamera : MonoBehaviour
 {
 
-    public Camera cam1;
-    public Camera cam2;
+    public Animator animator;
+    private bool isTPS;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        isTPS = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isTPS)
+        {
+            animator.SetBool("isTPS", true);
+        }
+        else
+        {
+            animator.SetBool("isTPS", false);
+        }
     }
 
     public void Switch()
     {
-        cam1.gameObject.active = !cam1.gameObject.active;
-        cam2.gameObject.active = !cam2.gameObject.active;
+        isTPS = !isTPS;
     }
 }

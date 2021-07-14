@@ -135,7 +135,6 @@ public class BlockyMove : MonoBehaviour
 
         //pos_to_parent = transform.position;
 
-
     }
 
     private void OnTriggerStay(Collider other)
