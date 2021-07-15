@@ -91,30 +91,11 @@ public class BlockyMove : MonoBehaviour
         {
             gravity -= 9.81 * Time.deltaTime;
         }
+        target_speed = Mathf.Max(Mathf.Abs(horizontal), Mathf.Abs(vertical));
 
-        if (vertical == 1)
-        {
-            target_speed = 1;
-
-        }
-        else if (vertical == -1)
-        {
-            target_speed = 1;
-        }
-        else if (vertical == 2)
-        {
-            target_speed = 2;
-        }
-
-        if (horizontal == 1)
-        {
-            target_speed = 1;
-        } else if (horizontal == -1) {
-            target_speed = 1;
-        }
-
+        float move_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         // make character move to direction based on camera direction
-        float target_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera_transform.eulerAngles.y;
+        float target_angle = move_angle + camera_transform.eulerAngles.y;
 
         //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target_angle, ref turn_smooth_velocity, turn_smooth_time);
 
