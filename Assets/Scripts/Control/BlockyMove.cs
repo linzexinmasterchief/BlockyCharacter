@@ -23,6 +23,7 @@ public class BlockyMove : MonoBehaviour
     public TriggerGrab triggerGrab;
 
     public GameObject interact_button;
+    public string interact_trigger_tag;
 
     private double gravity;
 
@@ -79,7 +80,7 @@ public class BlockyMove : MonoBehaviour
             if (CrossPlatformInputManager.GetAxisRaw("Jump") == 1)
             {
                 // jump thrust
-                gravity = 3;
+                gravity = 4;
                 target_speed = Mathf.Lerp(target_speed, 0, Time.deltaTime);
             }
             else
@@ -124,12 +125,12 @@ public class BlockyMove : MonoBehaviour
     {
         //transform.parent = other.transform;
         //transform.position += pos_to_parent;
-        if (other.tag == "Interactable")
+        if (other.tag == interact_trigger_tag)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
             {
-                if (hit.transform.tag == "Interactable")
+                if (hit.transform.tag == interact_trigger_tag)
                 {
                     interact_button.SetActive(true);
                 }
@@ -144,7 +145,7 @@ public class BlockyMove : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //transform.parent = null;
-        if (other.tag == "Interactable")
+        if (other.tag == interact_trigger_tag)
         {
             interact_button.SetActive(false);
         }
