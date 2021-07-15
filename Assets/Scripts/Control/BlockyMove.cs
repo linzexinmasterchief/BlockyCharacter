@@ -95,14 +95,15 @@ public class BlockyMove : MonoBehaviour
         if (vertical == 1)
         {
             target_speed = 1;
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                target_speed = 2;
-            }
 
-        } else if (vertical == -1)
+        }
+        else if (vertical == -1)
         {
             target_speed = 1;
+        }
+        else if (vertical == 2)
+        {
+            target_speed = 2;
         }
 
         if (horizontal == 1)
@@ -114,10 +115,11 @@ public class BlockyMove : MonoBehaviour
 
         // make character move to direction based on camera direction
         float target_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera_transform.eulerAngles.y;
+
         //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target_angle, ref turn_smooth_velocity, turn_smooth_time);
 
         // make character always face the same direction as camera
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, target_angle, 0f), Time.deltaTime * 10);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, camera_transform.eulerAngles.y, 0f), Time.deltaTime * 10);
         
         // smooth speed increase/decrease
         speed = Mathf.Lerp(anim.GetFloat("speed"), target_speed, Time.deltaTime * 10);
