@@ -27,12 +27,15 @@ public class BlockyMove : MonoBehaviour
 
     private double gravity;
 
+    private Vector3 local_delta_pos;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         gravity = 0;
 
+        local_delta_pos = Vector3.zero;
     }
 
     private void Update()
@@ -107,8 +110,16 @@ public class BlockyMove : MonoBehaviour
         speed = Mathf.Lerp(anim.GetFloat("speed"), target_speed, Time.deltaTime * 10);
         Vector3 move_direction = Quaternion.Euler(0f, target_angle, 0f) * Vector3.forward;
 
-        
-        controller.Move(move_direction * speed * 0.03f + new Vector3(0, (float) gravity * mass, 0));
+        if (transform.parent != null)
+        {
+            transform.position = transform.parent.position + local_delta_pos;
+            controller.Move(move_direction * speed * 0.03f + new Vector3(0, (float)gravity * mass, 0));
+            local_delta_pos = transform.position - transform.parent.position;
+        }
+        else
+        {
+            controller.Move(move_direction * speed * 0.03f + new Vector3(0, (float)gravity * mass, 0));
+        }
         anim.SetFloat("speed", speed);
 
     }
@@ -116,13 +127,16 @@ public class BlockyMove : MonoBehaviour
     //Vector3 pos_to_parent = Vector3.zero;
     private void OnTriggerEnter(Collider other)
     {
-
-        //pos_to_parent = transform.position;
-
+        if (other.tag == "Float Platform")
+        {
+            transform.parent = other.transform;
+            local_delta_pos = transform.position - transform.parent.position;
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
+
         //transform.parent = other.transform;
         //transform.position += pos_to_parent;
         if (other.tag == interact_trigger_tag)
@@ -144,10 +158,15 @@ public class BlockyMove : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //transform.parent = null;
+        
         if (other.tag == interact_trigger_tag)
         {
             interact_button.SetActive(false);
+        }
+
+        if (other.tag == "Float Platform")
+        {
+            transform.parent = null;
         }
     }
 

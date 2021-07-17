@@ -2,34 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MoveMode{
+    constant,
+    lerp
+}
+
 public class PlatformMove : MonoBehaviour
 {
 
-    public Vector3[] route;
+    public Transform[] route;
+    public MoveMode mode;
     public float speed;
 
     private int route_index;
 
-    private Transform platform;
+    public Transform platform;
 
     // Start is called before the first frame update
     void Start()
     {
-        int route_point_count = transform.Find("RoutePoints").childCount;
-        route = new Vector3[route_point_count];
-        for (int i = 0; i < route_point_count; i++)
-        {
-            route[i] = transform.Find("RoutePoints").GetChild(i).position;
-        }
         route_index = 0;
-
-        platform = transform.Find("Platform");
-        platform.position = route[route_index];
+        platform.position = route[route_index].position;
     }
 
     private void FixedUpdate()
     {
-        if ((platform.position - route[route_index]).sqrMagnitude < 0.01f)
+        if ((platform.position - route[route_index].position).sqrMagnitude < 0.01f)
         {
             route_index++;
             if (route_index >= route.Length)
@@ -38,8 +36,14 @@ public class PlatformMove : MonoBehaviour
             }
         }
 
-        Vector3 v = Vector3.zero;
-        platform.position = Vector3.SmoothDamp(platform.position, route[route_index], ref v, Time.fixedDeltaTime / speed);
+        //Vector3 v = Vector3.zero;
+        if (mode == MoveMode.constant)
+        {
+            platform.position = Vector3.MoveTowards(platform.position, route[route_index].position, Time.fixedDeltaTime * speed);
+        } else if (mode == MoveMode.lerp)
+        {
+            platform.position = Vector3.Lerp(platform.position, route[route_index].position, Time.fixedDeltaTime * speed);
+        }
 
     }
 }
