@@ -28,7 +28,7 @@ public class CinemachineCoreGetInputTouchAxis : MonoBehaviour
                 {
                     for (int i = 0; i < touches.Length; i++)
                     {
-                        if (UnityEngine.Screen.width / 2 < touches[i].position.x)
+                        if (UnityEngine.Screen.width / 4 < touches[i].position.x)
                         {
                             return touches[i].deltaPosition.x * TouchSensitivity_x;
                         }
@@ -46,7 +46,7 @@ public class CinemachineCoreGetInputTouchAxis : MonoBehaviour
                 {
                     for (int i = 0; i < touches.Length; i++)
                     {
-                        if (UnityEngine.Screen.width / 2 < touches[i].position.x)
+                        if (UnityEngine.Screen.width / 4 < touches[i].position.x)
                         {
                             return touches[i].deltaPosition.y * TouchSensitivity_y;
                         }
