@@ -7,6 +7,8 @@ TagManager:
   - Interactable
   - Viecle
   - Float Platform
+  - Transfer1
+  - Transfer2
   layers:
   - Default
   - TransparentFX
