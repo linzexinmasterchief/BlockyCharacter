@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    public GameObject TargetDoor;
-    public Transform target_transform;
-    public Transform object_transform;
+    public Transform portal_target;
 
     // function used to start teleportation
     void Teleport(GameObject teleportObject, Transform TargetTransform)
     {
-        object_transform.position = target_transform.position;
+        teleportObject.transform.position = TargetTransform.position;
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        object_transform = collider.transform;
-        Transform TargetTransform = TargetDoor.transform;
-        Teleport(collider.gameObject, TargetTransform);
+        Teleport(collider.gameObject, portal_target);
     }
 }
