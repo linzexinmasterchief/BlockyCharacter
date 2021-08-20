@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 //[RequireComponent(typeof(Animator))]
@@ -144,8 +145,9 @@ public class BlockyMove : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
             {
-                if (hit.transform.tag == interact_trigger_tag)
+                if (hit.transform.tag == interact_trigger_tag && hit.collider.isTrigger == false)
                 {
+                    interact_button.GetComponentInChildren<Text>().text = hit.transform.GetComponent<Info>().button_text;
                     interact_button.SetActive(true);
                 }
                 else

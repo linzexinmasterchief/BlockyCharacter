@@ -123,7 +123,6 @@ public class CarControl : MonoBehaviour
         if (mode == Mode.land)
         {
             Physics.gravity = transform.up * -9.8f;
-            Debug.Log(transform.up);
             if (Input.GetKey(KeyCode.Space))
             {
                 Vector3 velocity = GetComponent<Rigidbody>().velocity;
