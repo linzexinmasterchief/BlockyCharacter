@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mount : MonoBehaviour
 {
     public bool IsPeopleInTheCar = false;
     public GameObject Car;
     public GameObject People;
+    public Vector3 movement = Car.transform.position - People.transform.position;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class Mount : MonoBehaviour
         if (IsPeopleInTheCar == false)
         {
             IsPeopleInTheCar = !IsPeopleInTheCar;
-            Vector3 movement = Car.transform.position - People.transform.position;
+            movement = Car.transform.position - People.transform.position;
             People.transform.position = Car.transform.position;
             People.gameObject.SetActive(false);
         }
